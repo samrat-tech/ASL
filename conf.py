@@ -1,11 +1,3 @@
-from keras.models import load_model
-from sklearn.metrics import classification_report, confusion_matrix
-import pickle
-import numpy as np
-import time
-import matplotlib.pyplot as plt
-
-
 def plot_confusion_matrix(cm,
                           target_names,
                           title='Confusion matrix',
@@ -51,7 +43,7 @@ def plot_confusion_matrix(cm,
     if cmap is None:
         cmap = plt.get_cmap('Blues')
 
-    plt.figure(figsize=(20, 20))
+    plt.figure(figsize=(30,30))
     plt.imshow(cm, interpolation='nearest', cmap=cmap)
     plt.title(title)
     plt.colorbar()
@@ -78,12 +70,13 @@ def plot_confusion_matrix(cm,
     plt.tight_layout()
     plt.ylabel('True label')
     plt.xlabel('Predicted label\naccuracy={:0.4f}; misclass={:0.4f}'.format(accuracy, misclass))
-    plt.savefig('confusion_matrix.png')
+    plt.savefig('1confusion_matrix.png')
 
 
 model = load_model('model/keypoint_classifier/keypoint_classifier_new.h5')
 pred_labels=[]
 start_time = time.time()
+
 pred_probabs = model.predict(X_test)
 end_time = time.time()
 pred_time = end_time - start_time
@@ -95,13 +88,20 @@ for pred_probab in pred_probabs:
 
 cm = confusion_matrix(y_test, np.array(pred_labels))
 
+
+conf=[]
+for data in cm:
+    cf=[]
+    maxrow=max(data)
+    for d in data:
+        cf.append('%.2f' % float(d/maxrow))
+    conf.append(cf)
+cff=np.array(conf)
+
+
 classification_report = classification_report(y_test, np.array(pred_labels))
 print('\n\nClassification Report')
 print('---------------------------')
 print(classification_report)
-plot_confusion_matrix(cm, range(44), normalize=False)
-
-
-
-
+plot_confusion_matrix(cff, range(24), normalize=False)
 
