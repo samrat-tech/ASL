@@ -69,7 +69,7 @@ def main():
                 landmark_list = calc_landmark_list(debug_image, hand_landmarks)
                 pre_processed_landmark_list = pre_process_landmark(landmark_list)
                 brect = calc_bounding_rect(debug_image, hand_landmarks)
-                hand_sign_id, probab = keypoint_classifier(pre_processed_landmark_list)
+                hand_sign_id, probab = keypoint_classifier(pre_processed_landmark_list, handedness.classification[0].label[0:])
                 pr = float('%.3f' % float(probab))
                 p = str(pr)
                 # print(type(p))

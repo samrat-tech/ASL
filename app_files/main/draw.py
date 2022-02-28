@@ -187,6 +187,7 @@ def draw_info_text(brect, image, handedness, hand_sign_text, p, flag):
                  (0, 0, 0), -1)
     if flag == 1:
         info_text = handedness.classification[0].label[0:]
+        # print(info_text)
         if hand_sign_text != "":
             info_text = info_text + ':' + hand_sign_text + "  " + p
         cv.putText(image, info_text, (brect[0] + 5, brect[1] - 4),
