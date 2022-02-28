@@ -187,6 +187,7 @@ def draw_info_text(brect, image, handedness, hand_sign_text, p, flag):
                  (0, 0, 0), -1)
     if flag == 1:
         info_text = handedness.classification[0].label[0:]
+        # print(info_text)
         if hand_sign_text != "":
             info_text = info_text + ':' + hand_sign_text + "  " + p
         cv.putText(image, info_text, (brect[0] + 5, brect[1] - 4),
@@ -198,6 +199,6 @@ def draw_sentence(image, word):
     sentence = ""
     for w in word:
         sentence += " " + w
-    cv.putText(image, sentence, (10, 60), cv.FONT_HERSHEY_SIMPLEX, 1.0, (0, 64, 64), 2, cv.LINE_AA)
+    cv.putText(image, sentence, (10, 60), cv.FONT_HERSHEY_SIMPLEX, 1.0, (255, 255, 255), 1, cv.LINE_AA)
     # print("Entered here")
     return image

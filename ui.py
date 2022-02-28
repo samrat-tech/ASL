@@ -4,6 +4,7 @@ import cv2 as cv
 from model import KeyPointClassifier
 from app_files import calc_landmark_list, draw_info_text, draw_landmarks, pre_process_landmark, calc_bounding_rect,draw_sentence
 import mediapipe as mp
+import numpy as np
 from app_files import get_args
 
 
@@ -55,15 +56,13 @@ def main():
             break
         image = cv.flip(image, 1)
         debug_image = copy.deepcopy(image)
-        # print(debug_image.shape)
-        # cv.imshow("debug_image",debug_image)
         image = cv.cvtColor(image, cv.COLOR_BGR2RGB)
 
         image.flags.writeable = False
         results = hands.process(image)
         image.flags.writeable = True
-
-        debug_image = draw_sentence(debug_image, to_display_sentence)
+        blackboard = np.zeros((480, 640, 3), dtype=np.uint8)
+        blackboard = draw_sentence(blackboard, to_display_sentence)
         if results.multi_hand_landmarks is not None:
             for hand_landmarks, handedness in zip(results.multi_hand_landmarks, results.multi_handedness):
                 landmark_list = calc_landmark_list(debug_image, hand_landmarks)
@@ -74,17 +73,12 @@ def main():
                 p = str(pr)
                 # print(type(p))
                 debug_image = draw_landmarks(debug_image, landmark_list)
-                flag = 0
-                # debug_image = draw_info_text(
-                #     debug_image,
-                #     handedness,
-                #     keypoint_classifier_labels[hand_sign_id], p, flag)
                 flag = 1
                 debug_image = draw_info_text(brect,
                                              debug_image,
                                              handedness,
                                              keypoint_classifier_labels[hand_sign_id], p, flag)
-                debug_image = draw_sentence(debug_image, to_display_sentence)
+                blackboard = draw_sentence(blackboard, to_display_sentence)
                 if probab > 0.5:
                     consecutive_word.append(keypoint_classifier_labels[hand_sign_id])
 
@@ -104,10 +98,10 @@ def main():
                             #     print(to_display_sentence)
                         else:
                             lst = []
-                    # debug_image = draw_sentence(debug_image, to_display_sentence)
-                    print(to_display_sentence)
-
-        cv.imshow('Gesture Recognition', debug_image)
+                    # print(to_display_sentence)
+                    blackboard = draw_sentence(blackboard,to_display_sentence)
+        res = np.hstack((debug_image, blackboard))
+        cv.imshow('Gesture Recognition', res)
     cap.release()
     cv.destroyAllWindows()
 
