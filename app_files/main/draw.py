@@ -199,6 +199,6 @@ def draw_sentence(image, word):
     sentence = ""
     for w in word:
         sentence += " " + w
-    cv.putText(image, sentence, (10, 60), cv.FONT_HERSHEY_SIMPLEX, 1.0, (0, 64, 64), 2, cv.LINE_AA)
+    cv.putText(image, sentence, (10, 60), cv.FONT_HERSHEY_SIMPLEX, 1.0, (255, 255, 255), 1, cv.LINE_AA)
     # print("Entered here")
     return image
