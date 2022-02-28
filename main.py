@@ -2,8 +2,7 @@ import csv
 import copy
 import cv2 as cv
 from model import KeyPointClassifier
-from app_files import calc_landmark_list, draw_info_text, draw_landmarks, pre_process_landmark, calc_bounding_rect, \
-    draw_sentence
+from app_files import calc_landmark_list, draw_info_text, draw_landmarks, pre_process_landmark, calc_bounding_rect,draw_sentence
 import mediapipe as mp
 from app_files import get_args
 
