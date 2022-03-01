@@ -44,7 +44,7 @@ class KeyPointClassifier(object):
             #
             result_index = np.argmax(np.squeeze(result))
             probab = np.squeeze(result)[result_index]
-            print("Left tensor")
+            # print("Left tensor")
             return result_index, probab
 
         input_details_tensor_index = self.input_details2[0]['index']
