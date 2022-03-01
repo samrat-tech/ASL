@@ -183,22 +183,60 @@ def draw_landmarks(image, landmark_point):
 
 
 def draw_info_text(brect, image, handedness, hand_sign_text, p, flag):
-    cv.rectangle(image, (brect[0], brect[1]), (brect[2], brect[1] - 22),
-                 (0, 0, 0), -1)
+    # cv.rectangle(image, (brect[0]+5, brect[1]-4), (brect[2]+4, brect[1] - 22),
+    #              (0, 0, 0), -1)
     if flag == 1:
         info_text = handedness.classification[0].label[0:]
         # print(info_text)
         if hand_sign_text != "":
             info_text = info_text + ':' + hand_sign_text + "  " + p
-        cv.putText(image, info_text, (brect[0] + 5, brect[1] - 4),
-                   cv.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1, cv.LINE_AA)
+        cv.putText(image, info_text, (brect[0] + 6, brect[1] - 15),
+                   cv.FONT_HERSHEY_SIMPLEX, 0.6, (0, 223, 228), 2, cv.LINE_AA)
         return image
 
 
+# 35 alphabet in each line
+
 def draw_sentence(image, word):
     sentence = ""
+    sentence1 = ""
+    sentence2 = ""
+    sentence3 = ""
+    sentence4 = ""
+    sentence5 = ""
+    sentence6 = ""
+    sentence7 = ""
+    sentence8 = ""
+    sentence9 = ""
     for w in word:
         sentence += " " + w
-    cv.putText(image, sentence, (10, 60), cv.FONT_HERSHEY_SIMPLEX, 1.0, (255, 255, 255), 1, cv.LINE_AA)
-    # print("Entered here")
+
+    for i in range(0, len(sentence)):
+        if i <= 35:
+            sentence1 += sentence[i]
+            cv.putText(image, sentence1, (10, 60), cv.FONT_HERSHEY_SIMPLEX, 1.0, (255, 255, 255), 1, cv.LINE_AA)
+        elif i <= 70:
+            sentence2 += sentence[i]
+            cv.putText(image, sentence2, (10, 100), cv.FONT_HERSHEY_SIMPLEX, 1.0, (255, 255, 255), 1, cv.LINE_AA)
+        elif i <= 105:
+            sentence3 += sentence[i]
+            cv.putText(image, sentence3, (10, 140), cv.FONT_HERSHEY_SIMPLEX, 1.0, (255, 255, 255), 1, cv.LINE_AA)
+        elif i <= 140:
+            sentence4 += sentence[i]
+            cv.putText(image, sentence4, (10, 140), cv.FONT_HERSHEY_SIMPLEX, 1.0, (255, 255, 255), 1, cv.LINE_AA)
+        elif i <= 175:
+            sentence5 += sentence[i]
+            cv.putText(image, sentence5, (10, 140), cv.FONT_HERSHEY_SIMPLEX, 1.0, (255, 255, 255), 1, cv.LINE_AA)
+        elif i <= 210:
+            sentence6 += sentence[i]
+            cv.putText(image, sentence6, (10, 140), cv.FONT_HERSHEY_SIMPLEX, 1.0, (255, 255, 255), 1, cv.LINE_AA)
+        elif i <= 245:
+            sentence7 += sentence[i]
+            cv.putText(image, sentence7, (10, 140), cv.FONT_HERSHEY_SIMPLEX, 1.0, (255, 255, 255), 1, cv.LINE_AA)
+        elif i <= 280:
+            sentence8 += sentence[i]
+            cv.putText(image, sentence8, (10, 140), cv.FONT_HERSHEY_SIMPLEX, 1.0, (255, 255, 255), 1, cv.LINE_AA)
+        else:
+            sentence9 += sentence[i]
+            cv.putText(image, sentence9, (10, 180), cv.FONT_HERSHEY_SIMPLEX, 1.0, (255, 255, 255), 1, cv.LINE_AA)
     return image
